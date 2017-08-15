@@ -6,7 +6,7 @@ import {resolve} from 'path'
 const r = path => resolve(__dirname, path)
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
-const MIDDLEWARES = ['router']
+const MIDDLEWARES = ['database','router']
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
