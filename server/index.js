@@ -6,6 +6,7 @@ import {resolve} from 'path'
 const r = path => resolve(__dirname, path)
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
+const MIDDLEWARES = ['router']
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -17,7 +18,7 @@ const nuxt = new Nuxt(config)
 class Server {
   constructor () {
     this.app = new Koa()
-    this.useMiddleWare(this.app)
+    this.useMiddleWare(this.app)(MIDDLEWARES)
   }
 
   useMiddleWare (app) {

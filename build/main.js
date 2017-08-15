@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -95,42 +95,67 @@ module.exports = {
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(4);
+module.exports = __webpack_require__(7);
 
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-module.exports = require("koa");
+function webpackEmptyContext(req) {
+	throw new Error("Cannot find module '" + req + "'.");
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = 2;
+
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa");
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("nuxt");
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+module.exports = require("ramda");
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_spursy_Develop_vue_wechat_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_spursy_Develop_vue_wechat_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_spursy_Develop_vue_wechat_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ramda__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ramda___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ramda__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_path__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_path__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_path__);
 
 
@@ -145,7 +170,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-var app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
 var r = function r(path) {
   return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_path__["resolve"])(__dirname, path);
 };
@@ -154,7 +178,7 @@ var port = process.env.PORT || 3000;
 
 // Import and Set Nuxt.js options
 var config = __webpack_require__(0);
-config.dev = !(app.env === 'production');
+config.dev = !(process.env === 'production');
 
 // Instantiate nuxt.js
 var nuxt = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Nuxt"](config);
@@ -195,7 +219,7 @@ var Server = function () {
                   });
                 }
 
-                app.use(function (ctx) {
+                this.app.use(function (ctx) {
                   ctx.status = 200; // koa defaults to 404 when it sees that status is unset
 
                   return new Promise(function (resolve, reject) {
@@ -208,7 +232,7 @@ var Server = function () {
                   });
                 });
 
-                app.listen(port, host);
+                this.app.listen(port, host);
                 console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
               case 4:
@@ -233,31 +257,6 @@ var Server = function () {
 var server = new Server();
 server.start();
 /* WEBPACK VAR INJECTION */}.call(exports, "server"))
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-module.exports = require("ramda");
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-module.exports = require("path");
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 8;
-
 
 /***/ }
 /******/ ]);
