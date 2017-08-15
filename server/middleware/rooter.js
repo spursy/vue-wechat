@@ -4,7 +4,7 @@ import config from '../config'
 export const router = app => {
     const router = new router()
 
-    router.get('/wechaty-hear', (ctx, next) {
+    router.get('/wechaty-hear', (ctx, next) => {
         const token = opts.token
         const {
             signature,
@@ -18,8 +18,6 @@ export const router = app => {
 
         ctx.body = ''
     })
-
-   
 
     app.use(router.routers())
     app.use(router.allowMethods())
