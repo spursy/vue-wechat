@@ -19,11 +19,8 @@ export const router = app => {
         const str = [token, timestamp,  nonce].sort().join('')
         const sha = sha1(str)
 
-        console.log(sha);
-        console.log(signature);
-
         if (sha === signature) {
-            console.log('true')
+            console.log('access token validation is passed.')
             ctx.body = echostr
         } else {
             console.log('false')

@@ -10,7 +10,7 @@ fs.readdirSync(models)
 
 export const database = app => {
     mongoose.set('debug', true)
-
+    console.log(`connect mongoodb`);
     mongoose.connect(config.db)
 
     mongoose.connection.on('disconnect', () => {
