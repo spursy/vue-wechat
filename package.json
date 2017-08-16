@@ -32,9 +32,11 @@
     "koa-router": "^7.2.1",
     "mongoose": "^4.11.7",
     "nodemon": "^1.11.0",
+    "raw-body": "^2.3.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "scmp": "^2.0.0",
-    "sha1": "^1.1.1"
+    "sha1": "^1.1.1",
+    "xml2js": "^0.4.18"
   }
 }
