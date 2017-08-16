@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import config from '../config'
 import Wechat from '../wechat-lib'
 
-const Token = mongoose.model('Token')
+const Token = require('../middlewares/schema')
 
 const wechatConfig = {
     wechat: {

@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 import config from '../config'
 import fs from 'fs'
-import resolve  from 'path'
+import {resolve}  from 'path'
 
-const models = resolve(__dirname, '../database/schema')
+const models = resolve(__dirname, './schema')
 fs.readdirSync(models)
     .filter(file => ~file.search(/^[^\.].*js$/))
     .forEach(file => require(resolve(models, file)))
