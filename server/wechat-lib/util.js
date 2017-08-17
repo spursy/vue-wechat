@@ -1,4 +1,5 @@
 import xml2js from 'xml2js'
+import template from './tpl'
 
 export function  parseXML (xml) {
     return new Promise((resolve, reject) => {
@@ -7,5 +8,69 @@ export function  parseXML (xml) {
             else resolve(content)
         })
     })
+}
 
+function formateMessage (result) {
+    let message = {}
+    if (typeof result === 'object') {
+        const keys = Object.keys(result)
+
+        for (let i = 0; i < keys.length; i ++) {
+            let item = result[keys[i]]
+            let key = keys[i]
+
+            if (!(item instanceof Array) || item.length == 0) {
+                continue
+            }
+
+            if (item.lenght === 1) {
+                let val = item[0]
+
+                if (typeof val === 'object') {
+                    message[key] = formateMessage(val)
+                } else {
+                    message[key] = []
+
+                    for (let j = 0; j < item.length; j ++) {
+                        message[key].push(formateMessage(item[j]))
+                    }
+                }    
+            }
+        }
+    }
+
+    return message
+}
+
+function tpl (content, message) {
+    let info = {}
+    let type = 'text'
+
+    if (Array.isArray(content)) {
+        type = 'news'
+    }
+
+    if (!content) {
+        content = 'Empty News.'
+    }
+
+    if (content && content.type) {
+        type = content.type
+    }
+
+    let info = Object.assign({}, {
+        content: content,
+        creatTime: new Date().getTime(),
+        msgType: type,
+        toUserName: message.FromUserName,
+        fromUserName: message.ToUserName
+    })
+
+    return template(info)
+}
+
+export {
+    formateMessage,
+    parseXML,
+    tpl
 }
