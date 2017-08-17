@@ -33,7 +33,6 @@ export default class WeChat {
 
         if (!this.isValidAccessToken(data)) {
             data =  await this.updateAccessToken()
-           
         }
 
         await this.saveAccessToken(data)

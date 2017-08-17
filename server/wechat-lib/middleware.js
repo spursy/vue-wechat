@@ -3,13 +3,15 @@ import getRawBody from 'raw-body'
 import * as util from './util'
 
 export default  function (opts, reply) {
-    console.log(`13131313344444441`);
-    return async function wechatMiddle(ctx, next) {
+    console.log(`13131313333333333`);
+    return async function(ctx, next) {
+        console.log(`13131313344444441`);
+        ctx.body = 'Who Who Who'
         const token = opts.token
         const {
             signature,
             nonce,
-            timestamp,
+            timestamp, 
             echostr
         } = ctx.query
 
