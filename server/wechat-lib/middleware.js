@@ -3,10 +3,8 @@ import getRawBody from 'raw-body'
 import * as util from './util'
 
 export default  function (opts, reply) {
-    console.log(`13131313333333333`);
     return async function(ctx, next) {
-        console.log(`13131313344444441`);
-        ctx.body = 'Who Who Who'
+        console.log(`1.0 wechat module`);
         const token = opts.token
         const {
             signature,
@@ -15,13 +13,12 @@ export default  function (opts, reply) {
             echostr
         } = ctx.query
 
-        console.log(`1313131331`);
         const str = [token, timestamp,  nonce].sort().join('')
         const sha = sha1(str)
 
         if (ctx.method === 'GET') {
             if (sha === signature) {
-                console.log('access token validation is passed.')
+                console.log('2.0 access token validation is passed.')
                 ctx.body = echostr
             } else {
                 console.log('false')
@@ -39,28 +36,19 @@ export default  function (opts, reply) {
             encoding: ctx.charset
         })
         const content = await util.parseXML (data)
-        const message = util.formatMessage(content.xml)
-        console.log(`${JSON.stringify(content)}`);
-
+        const message = await util.formateMessage(content.xml)
         ctx.weixin = message
 
         await reply.apply(ctx, [ctx, next])
-
         const replyBody = ctx.body
+   
         const msg = ctx.weixin
-        const xml = util.tpl(replyBody, msg)
-        console.log(`${JSON.stringify(replyBody)}`);
-
-        // const xml = `<xml>
-        //                  <ToUserName><![CDATA[${content.xml.FromUserName[0]}]]></ToUserName>
-        //                  <FromUserName><![CDATA[${content.xml.ToUserName[0]}]]></FromUserName>
-        //                  <CreateTime>12345678</CreateTime>
-        //                  <MsgType><![CDATA[text]]></MsgType>
-        //                  <Content><![CDATA[${replyBody}]]></Content>
-        //                  </xml>`
+        const xml = await util.tpl(replyBody, msg)
+        console.log(`2222222222${JSON.stringify(xml)}`);
 
         ctx.status = 200
         ctx.type = 'application/xml'
+        console.log(`11111111111111111111111111`);
         ctx.body = xml
     }
 }

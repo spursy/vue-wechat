@@ -3,8 +3,7 @@ const tip = 'This is spursy, welcome to my fields\n' +
 
 export default async (ctx, next) => {
     const message = ctx.weixin
-    // console.log(`${message}`)
-    ctx.body = tip
+    console.log(`${JSON.stringify(message)}`)
     if (message.MsgType == 'text') {
         ctx.body = message.Content
     } else if (message.MsgType == 'image') {

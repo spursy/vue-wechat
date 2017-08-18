@@ -1,15 +1,3 @@
-import xml2js from 'xml2js'
-import template from './tpl'
-
-function  parseXML (xml) {
-    return new Promise((resolve, reject) => {
-        xml2js.parseString(xml, {trim: true}, (err, content) => {
-            if (err) reject(err)
-            else resolve(content)
-        })
-    })
-}
-
 function formateMessage (result) {
     console.log(`${JSON.stringify(result)}`);
     let message = {}
@@ -43,34 +31,8 @@ function formateMessage (result) {
     return message
 }
 
-function tpl (content, message) {
-    let type = 'text'
+var obj = {"ToUserName":["gh_1360a2c99784"],"FromUserName":["oenItv4B3gH_wL_bf7D9Ovlt69Sk"],"CreateTime":["1502978181"],"MsgType":["event"],"Event":["subscribe"],"EventKey":[""]}
 
-    if (Array.isArray(content)) {
-        type = 'news'
-    }
+var result = formateMessage(obj)
 
-    if (!content) {
-        content = 'Empty News.'
-    }
-
-    if (content && content.type) {
-        type = content.type
-    }
-
-    let info = Object.assign({}, {
-        content: content,
-        createTime: new Date().getTime(),
-        msgType: type,
-        toUserName: message.FromUserName,
-        fromUserName: message.ToUserName
-    })
-
-    return template(info)
-}
-
-export {
-    formateMessage,
-    parseXML,
-    tpl
-}
+console.log(`${result}`);
