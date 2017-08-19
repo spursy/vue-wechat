@@ -2,9 +2,9 @@ import sha1 from 'sha1'
 import getRawBody from 'raw-body'
 import * as util from './util'
 
-export default  function (opts, reply) {
+export default function (opts, reply) {
     return async function(ctx, next) {
-        console.log(`1.0 wechat module`);
+        console.log(`WeChat Module`);
         const token = opts.token
         const {
             signature,
@@ -12,43 +12,45 @@ export default  function (opts, reply) {
             timestamp, 
             echostr
         } = ctx.query
-
         const str = [token, timestamp,  nonce].sort().join('')
         const sha = sha1(str)
 
         if (ctx.method === 'GET') {
             if (sha === signature) {
-                console.log('2.0 access token validation is passed.')
+                console.log('   Get - Access token validation is successfully.')
                 ctx.body = echostr
+                return
             } else {
-                console.log('false')
+                console.log('Get - Access token validation is failed.')
                 ctx.body = 'failed'
             }
         } else if (ctx.method === 'POST') {
             if (sha !== signature) {
-                ctx.body = 'Failed'
+                ctx.body = 'Post validation is failed'
                 return false
             }
+
+            console.log(`   Post - Access token validation is passed.`);
         }
+        
         const data = await getRawBody(ctx.req, {
             length: ctx.length,
             limit: '1mb',
             encoding: ctx.charset
         })
-        const content = await util.parseXML (data)
+        const content = await util.parseXML (data)  
         const message = await util.formateMessage(content.xml)
+        console.log(`   WeChat Response Mes: ${JSON.stringify(message)}`);
         ctx.weixin = message
-
+        // get response body
         await reply.apply(ctx, [ctx, next])
         const replyBody = ctx.body
-   
         const msg = ctx.weixin
+        // package reponse xml
         const xml = await util.tpl(replyBody, msg)
-        console.log(`2222222222${JSON.stringify(xml)}`);
-
+        console.log(`${xml}`);
         ctx.status = 200
         ctx.type = 'application/xml'
-        console.log(`11111111111111111111111111`);
         ctx.body = xml
     }
 }

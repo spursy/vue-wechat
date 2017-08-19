@@ -1,14 +1,14 @@
 import ejs from 'ejs'
 
-const tpl = `
-    <xml>
-        <ToUserName><![CDATA[<%= fromUserName%>]]></ToUserName>
-        <FromUserName><![CDATA[<%= toUserName%>]]></FromUserName>
+const tpl = 
+    `<xml>
+        <ToUserName><![CDATA[<%= toUserName%>]]></ToUserName>
+        <FromUserName><![CDATA[<%= fromUserName%>]]></FromUserName>
         <CreateTime><%= createTime%></CreateTime>
         <MsgType><![CDATA[<%= msgType%>]]></MsgType>
         
         <% if (msgType == 'text') {%>
-            <Content><![CDATA[<%= content.content%>]]></Content>
+            <Content><![CDATA[<%= content%>]]></Content>
         <% } else if (msgType == 'image') {%>
             <Image>
                 <MediaId><![CDATA[<%= content.mediaID%>]]></MediaId>
@@ -44,7 +44,6 @@ const tpl = `
                 <% })%>
             </Articles>
         <% }%>
-    </xml>
-`
+    </xml>`
 const compiled = ejs.compile(tpl)
 export default compiled

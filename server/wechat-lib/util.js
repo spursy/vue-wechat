@@ -46,7 +46,10 @@ function formateMessage (result) {
 function tpl (content, message) {
     let type = 'text'
 
-    if (Array.isArray(content)) {
+    if (message.MsgType === 'event' && message.Event === 'subscribe') {
+        content = 'Welcome to yiqigo.'
+    }
+    else if (Array.isArray(content)) {
         type = 'news'
     }
 
@@ -66,6 +69,7 @@ function tpl (content, message) {
         fromUserName: message.ToUserName
     })
 
+    console.log(`${JSON.stringify(info)}`);
     return template(info)
 }
 
