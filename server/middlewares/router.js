@@ -3,6 +3,7 @@ import config from '../config'
 import reply from '../wechat/reply'
 import wechatMiddle from '../wechat-lib/middleware'
 import path from 'path'
+import { signature } from '../controllers/wechat'
 
 var se = '12'
 export const router = app => {
@@ -10,6 +11,11 @@ export const router = app => {
     router.all('/wechat-hear', async (ctx, next) => {
         await wechatMiddle(config.wechat, reply)(ctx, next)
     })
+
+    router.all('/wechat-signature', async (ctx, next) => {
+        await signature
+    })
+
     router.get('/upload', async(ctx, next) => {
         let Wechat = require('../wechat')
         let client = await Wechat.getWeChat()

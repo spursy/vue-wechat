@@ -1,6 +1,8 @@
 import request from 'request-promise'
 import fs from 'fs'
 import _ from 'lodash'
+import { sign } from './util'
+
 // &appid=APPID&secret=APPSECRET
 const base = 'https://api.weixin.qq.com/cgi-bin/'
 const api = {
@@ -19,6 +21,9 @@ const api = {
         updateNews: base + 'material/update_news?',
         getMaterialsCount: base + 'material/get_materialcount?',
         batchMaterails: base + 'material/batchget_material?'
+    },
+    ticket: {
+        get: base + 'ticket/getticket?'
     }
 }
 
@@ -30,6 +35,8 @@ export default class WeChat {
         this.appSecret = opts.appSecret
         this.getAccessToken = opts.getAccessToken
         this.saveAccessToken = opts.saveAccessToken
+        this.getTicket = opts.getTicket
+        this.saveTicket = opts.saveTicket
 
         this.fetchAccessToken()
     }
@@ -48,11 +55,22 @@ export default class WeChat {
     async fetchAccessToken () {
         let data = await this.getAccessToken()
 
-        if (!this.isValidAccessToken(data)) {
+        if (!this.isValidToken(data, 'access_token')) {
             data =  await this.updateAccessToken()
         }
         console.log(`123231${JSON.stringify(data)}`);
         await this.saveAccessToken(data)
+        return data
+    }
+
+    async fetchTiket () {
+        let data = await this.getTicket()
+
+        if (!this.isValidToken(data, 'ticket')) {
+            data =  await this.updateTicket(token)
+        }
+        console.log(`123231${JSON.stringify(data)}`);
+        await this.saveTicket(data)
         return data
     }
 
@@ -66,8 +84,18 @@ export default class WeChat {
         return data
     }
 
-    isValidAccessToken (data) {
-        if (!data || !data.access_token || !data.expires_in) {
+    async updateTicket (token) {
+        const url = api.ticket.get + '&access_token=' + token + '&type=jsapi'
+        const data = await this.request({url: url})
+
+        const now = (new Date().getTime())
+        const expiresIn = now + (data.expires_in - 20 ) * 1000
+        data.expires_in = expiresIn
+        return data
+    }
+
+    isValidToken (data, name) {
+        if (!data || !data[name] || !data.expires_in) {
             return false
         }
 
@@ -140,5 +168,9 @@ export default class WeChat {
         }
         options.body = form
         return options
+    }
+
+    sign (ticket, url) {
+        return sign(ticket, url)
     }
 }
