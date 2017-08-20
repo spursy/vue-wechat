@@ -11,7 +11,7 @@ const tpl =
             <Content><![CDATA[<%= content%>]]></Content>
         <% } else if (msgType == 'image') {%>
             <Image>
-                <MediaId><![CDATA[<%= content.mediaID%>]]></MediaId>
+                <MediaId><![CDATA[<%= content.mediaId%>]]></MediaId>
             </Image>
         <% } else if (msgType == 'voice') {%>
             <Voice>

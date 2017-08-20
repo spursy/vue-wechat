@@ -1,5 +1,6 @@
 import xml2js from 'xml2js'
 import template from './tpl'
+import _ from 'lodash'
 
 function  parseXML (xml) {
     return new Promise((resolve, reject) => {
@@ -68,8 +69,12 @@ function tpl (content, message) {
         toUserName: message.FromUserName,
         fromUserName: message.ToUserName
     })
+    console.log(`mediaId  >>>>  ${content.mediaId}`);
+    if (content.type === 'image'){
+        info.mediaId = content.mediaId
+    }
 
-    console.log(`${JSON.stringify(info)}`);
+    console.log(`   info >>>  ${JSON.stringify(info)}`);
     return template(info)
 }
 
