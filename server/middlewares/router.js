@@ -14,10 +14,10 @@ export const router = app => {
         let Wechat = require('../wechat')
         let client = await Wechat.getWeChat()
         console.log(`upload upload upload`);   
-        const data = await client.handle('uploadMaterials', 'image', path.resolve(__dirname ,'../../static/materials/handsome.jpg'))
+        // upload temporary image.
+        // const data = await client.handle('uploadMaterials', 'image', path.resolve(__dirname ,'../../static/materials/handsome.jpg'), true)
+        const data = await client.handle('uploadNewsMaterials')
         ctx.body = JSON.stringify(data)
-
-        // ctx.body = '12312312'
     })
  
     app

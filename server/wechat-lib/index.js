@@ -1,5 +1,6 @@
 import request from 'request-promise'
 import fs from 'fs'
+import _ from 'lodash'
 // &appid=APPID&secret=APPSECRET
 const base = 'https://api.weixin.qq.com/cgi-bin/'
 const api = {
@@ -10,6 +11,7 @@ const api = {
     },
     permanent: {
         addNewsMaterials: base + 'material/add_news?', 
+        //for news message
         addPicsMaterials: base + 'media/uploadimg?',
         addOthersMaterials: base + 'material/add_material?',
         featchMaterials: base + 'material/get_material?',
@@ -91,15 +93,14 @@ export default class WeChat {
         let form = {}
         let url = ''
         if (pernanent) {
-            url = api.permanent.addMaterials
+            url = api.permanent.addOthersMaterials
         } else {
             url = api.temporary.addMaterials
-        }
+        }        
         form.media =await fs.createReadStream(materials)
 
         let uploadUrl = url + 'access_token=' +  token
-        if (!pernanent)
-            uploadUrl += '&type=' + type
+        uploadUrl += '&type=' + type
 
         const options = {
             method: 'POST',
@@ -112,6 +113,32 @@ export default class WeChat {
         } else {
             options.formData = form
         }
+        return options
+    }
+
+    async uploadNewsMaterials(token) {
+        let form = {}
+        let url = api.permanent.addNewsMaterials
+        var obj = {
+                "articles": [{
+                "title": "Welocme to yiqigo",
+                "thumb_media_id":"cEn1jwnodDYTi0fFJEOMIDrzATPQdDmbsylqoRnXhtg",
+                "author": "Spursyy",
+                "digest": "Welcome to my home.",
+                "show_cover_pic": 1,
+                "content": "today is bemjdaljljkjkl",
+                "content_source_url": "Http://baidu.com"
+            },
+            //若新增的是多图文素材，则此处应还有几段articles结构
+        ]}
+        let uploadUrl = url + 'access_token=' +  token
+        _.extend(form, obj)
+        const options = {
+            method: 'POST',
+            url: uploadUrl,
+            json: true
+        }
+        options.body = form
         return options
     }
 }
