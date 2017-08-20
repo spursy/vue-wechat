@@ -4,7 +4,13 @@ const tip = 'This is spursy, welcome to my fields\n' +
 export default async (ctx, next) => {
     const message = ctx.weixin
     if (message.MsgType == 'text') {
-        ctx.body = message.Content 
+        if (message.Content.toLocaleLowerCase().trim() === 'news') {
+            ctx.body = {
+                'type': 'news',
+                
+            }
+        } else 
+            ctx.body = message.Content 
     } else if (message.MsgType == 'image') {
         ctx.body = {
             type: 'image',

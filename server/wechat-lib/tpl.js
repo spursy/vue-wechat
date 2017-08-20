@@ -39,7 +39,7 @@ const tpl =
                         <Title><![CDATA[<%= item.title%>]]></Title>
                         <Description><![CDATA[<%= item.descritpion%>]]></Description>
                         <PicUrl><![CDATA[<%= item.picUrl%>]]></PicUrl>
-                        <Url><![CDATA[<%= url%>]]></Url>
+                        <Url><![CDATA[<%= item.url%>]]></Url>
                     </item>
                 <% })%>
             </Articles>

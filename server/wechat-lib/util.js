@@ -72,6 +72,15 @@ function tpl (content, message) {
     console.log(`mediaId  >>>>  ${content.mediaId}`);
     if (content.type === 'image'){
         info.mediaId = content.mediaId
+    } else if (content.type === 'news') {
+        info.content = []
+        const article = {
+            title: "yiqigo",
+            description: "Welcome to yiqigo",
+            picUrl: 'http://mmbiz.qpic.cn/mmbiz_jpg/EExKrcN0nhw77scU3p82LjtokkmTxK5bmPIUibTDGOzwVnxYeEpfW9icJMmlVW3EyWibzUBFcOSLJhZvvrmlbkrsg/0',
+            url: 'http://baidu.com'
+        }
+        info.content.push(article)
     }
 
     console.log(`   info >>>  ${JSON.stringify(info)}`);
