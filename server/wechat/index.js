@@ -2,7 +2,6 @@ import mongoose from 'mongoose'
 import config from '../config'
 import Wechat from '../wechat-lib'
 
-// const Token = require('../middlewares/schema/token')
 const Token = mongoose.model('Token')
 const wechatConfig = {
     wechat: {
@@ -14,10 +13,8 @@ const wechatConfig = {
     }
 }
 
-export const getWeChat = () => {
-    const wechatClient = new Wechat(wechatConfig.wechat)
+export const getWeChat = async () => {
+    const wechatClient = await new Wechat(wechatConfig.wechat)
     return wechatClient
 }
-
-getWeChat()
 

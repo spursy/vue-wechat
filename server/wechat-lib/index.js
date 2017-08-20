@@ -1,8 +1,23 @@
 import request from 'request-promise'
+import fs from 'fs'
 // &appid=APPID&secret=APPSECRET
 const base = 'https://api.weixin.qq.com/cgi-bin/'
 const api = {
-    accessToken:  base + 'token?grant_type=client_credential'
+    accessToken:  base + 'token?grant_type=client_credential',
+    temporary: {
+        addMaterials: base + 'media/upload?',
+        featchMaterials: base + 'media/get?'
+    },
+    permanent: {
+        addNewsMaterials: base + 'material/add_news?', 
+        addPicsMaterials: base + 'media/uploadimg?',
+        addOthersMaterials: base + 'material/add_material?',
+        featchMaterials: base + 'material/get_material?',
+        deleteMaterials: base + 'material/del_material?',
+        updateNews: base + 'material/update_news?',
+        getMaterialsCount: base + 'material/get_materialcount?',
+        batchMaterails: base + 'material/batchget_material?'
+    }
 }
 
 export default class WeChat {
@@ -34,14 +49,13 @@ export default class WeChat {
         if (!this.isValidAccessToken(data)) {
             data =  await this.updateAccessToken()
         }
-
+        console.log(`123231${JSON.stringify(data)}`);
         await this.saveAccessToken(data)
         return data
     }
 
     async updateAccessToken () {
         const url = api.accessToken + '&appid=' + this.appID + '&secret=' + this.appSecret
-        console.log(`${url}`);
         const data = await this.request({url: url})
 
         const now = (new Date().getTime())
@@ -56,12 +70,48 @@ export default class WeChat {
         }
 
         const expiresIn = data.expires_in
-        const now = (new Data().getTime())
+        const now = (new Date().getTime())
 
         if (now < expiresIn) {
             return true
         } else {
             return false
         }
+    }
+
+    async handle (operation, ...args) {
+        const tokenData = await this.fetchAccessToken()
+        console.log(`handel + ${JSON.stringify(tokenData)}`);
+        const options = await this[operation](tokenData.access_token, ...args)
+        const data = await this.request(options)
+        return data
+    }
+
+    async uploadMaterials(token, type, materials, pernanent) {
+        let form = {}
+        let url = ''
+        if (pernanent) {
+            url = api.permanent.addMaterials
+        } else {
+            url = api.temporary.addMaterials
+        }
+        form.media =await fs.createReadStream(materials)
+
+        let uploadUrl = url + 'access_token=' +  token
+        if (!pernanent)
+            uploadUrl += '&type=' + type
+
+        const options = {
+            method: 'POST',
+            url: uploadUrl,
+            json: true
+        }
+
+        if (type === 'news') {
+            options.body = form
+        } else {
+            options.formData = form
+        }
+        return options
     }
 }

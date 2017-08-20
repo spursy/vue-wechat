@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const TokenSchema = new mongoose.Schema({
     name: String,
-    access_token: String,
+    token: String,
     expires_in: Number,
     meta: {
         createdAt: {

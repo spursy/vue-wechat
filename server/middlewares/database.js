@@ -11,14 +11,17 @@ fs.readdirSync(models)
 export const database = app => {
     mongoose.set('debug', true)
     console.log(`connect mongoodb`);
-    mongoose.connect(config.db)
 
+    mongoose.connect(config.db+ '/' + 'yiqigo' )
+    
     mongoose.connection.on('disconnect', () => {
-        mongoose.connect(config.db)
+        // mongoose.createConnection('localhost', 'yiqigo', '27017')
     })
 
     mongoose.connection.on('error', err => {
-        console.error('${err}');
+        //not exists dbs, create a database
+        console.log(`not exists dbs, create a database.`);
+        mongoose.connect(config.db)
     })
 
     mongoose.connection.on('open', async => {
