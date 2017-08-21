@@ -5,7 +5,6 @@ import wechatMiddle from '../wechat-lib/middleware'
 import path from 'path'
 import { signature } from '../controllers/wechat'
 
-var se = '12'
 export const router = app => {
     const router = new Router()  
     router.all('/wechat-hear', async (ctx, next) => {
