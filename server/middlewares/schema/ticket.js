@@ -60,7 +60,7 @@ ticketSchema.statics = {
     }
 }
 
-const ticket = mongoose.model('ticket', ticketSchema)
+const ticket = mongoose.model('Ticket', ticketSchema)
 
 
 

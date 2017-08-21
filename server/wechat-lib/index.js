@@ -63,8 +63,8 @@ export default class WeChat {
         return data
     }
 
-    async fetchTiket () {
-        let data = await this.getTicket()
+    async fetchTicket (token) {
+        let data = await this.getTicket(token)
 
         if (!this.isValidToken(data, 'ticket')) {
             data =  await this.updateTicket(token)

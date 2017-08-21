@@ -108,7 +108,7 @@ function raw() {
     for (let k in newArgs) {
         str += '&' +k+ newArgs[k]
     }
-    return string.substr(1)
+    return str.substr(1)
 }
 
 function signIt(nonce, ticket, timestamp, url) {

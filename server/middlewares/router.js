@@ -13,7 +13,7 @@ export const router = app => {
     })
 
     router.all('/wechat-signature', async (ctx, next) => {
-        await signature
+        await signature(ctx, next)
     })
 
     router.get('/upload', async(ctx, next) => {

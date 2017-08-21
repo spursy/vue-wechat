@@ -1,6 +1,6 @@
-import { getWechat } from '../wechat'
+import { getWeChat } from '../wechat'
 
-const client = getWechat()
+const client = getWeChat()
 
 export async function getSignatureAsync (url) {
     const data = await client.fetchAccesstoken()
