@@ -52,7 +52,7 @@ export default class WeChat {
         }
     }
 
-    async fetchAccessToken () {
+    async  fetchAccessToken () {
         let data = await this.getAccessToken()
 
         if (!this.isValidToken(data, 'access_token')) {

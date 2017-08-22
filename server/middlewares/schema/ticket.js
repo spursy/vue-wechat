@@ -48,7 +48,7 @@ ticketSchema.statics = {
             ticket.ticket = data.access_ticket
             ticket.expires_in = data.expires_in
         } else {
-            ticket = new ticket({
+            ticket = new Ticket({
                 name: 'access_ticket',
                 ticket: data.access_ticket,
                 expires_in: data.expires_in
@@ -60,7 +60,7 @@ ticketSchema.statics = {
     }
 }
 
-const ticket = mongoose.model('Ticket', ticketSchema)
+const Ticket = mongoose.model('Ticket', ticketSchema)
 
 
 

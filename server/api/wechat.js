@@ -1,11 +1,10 @@
 import { getWeChat } from '../wechat'
 
-const client = getWeChat()
-
 export async function getSignatureAsync (url) {
-    const data = await client.fetchAccesstoken()
+    const client = await getWeChat()
+    const data = await client.fetchAccessToken() 
     const token = data.access_token
-    const ticketData = await client.getTiken(token)
+    const ticketData = await client.fetchTicket(token)
     const ticket = ticketData.ticket
 
     let params = client.sign(ticket, url)

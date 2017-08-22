@@ -96,7 +96,7 @@ function createTimestamp() {
     return parseInt(new Date().getTime() / 1000, 0) + ''
 }
 
-function raw() {
+function raw(args) {
     let keys = Object.keys(args)
     keys = keys.sort()
     let newArgs = {}
@@ -125,9 +125,9 @@ function signIt(nonce, ticket, timestamp, url) {
 }
 
 function sign (ticket, url) {
-    const nonce = createNonce()
+    const noncestr = createNonce()
     const timestamp = createTimestamp()
-    const signature = signIt(nonce, ticket, timestamp, url)
+    const signature = signIt(noncestr, ticket, timestamp, url)
 
     return {
         noncestr: noncestr,
