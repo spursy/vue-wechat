@@ -1,5 +1,5 @@
 import { getWeChat } from '../wechat'
-// add demo.
+
 export async function getSignatureAsync (url) {
     const client = await getWeChat()
     const data = await client.fetchAccessToken() 
