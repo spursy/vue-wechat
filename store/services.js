@@ -10,7 +10,6 @@ class Services {
         return axios.get(`${baseUrl}/wechat-oauth?url=${url}`)
     }
     fetchHouses () { 
-        console.log(`fetch houses data.`);
         return axios.get(`${apiUrl}/wiki/houses`)
     }
     fetchCities () {

@@ -9,7 +9,7 @@ export default {
     },
     async fetchHouses( {state} ) {
         const res = await Services.fetchHouses()
-        state.houses = res.data.data
+        state.houses = res.data[0].data
         return res
     },
     async fetchCities ( {state} ) {

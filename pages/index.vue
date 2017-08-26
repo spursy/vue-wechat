@@ -1,9 +1,10 @@
 <template lang = 'pug'>
   .container
     .house(ref='houses')
+      .title 家族
       .items(v-for='(item, index) in houses' :key='index' @click='showHouse(item)')
         .desc
-          .words {{item.words}}
+          .intro {{item.intro}}
           .cname {{item.name}}
           .name {{item.cname}}
     .character
@@ -17,7 +18,6 @@
             .name {{item.cname}}
     .city
       .title 维斯特洛
-      .intro 天下太平
       .items(v-for='(item, index) in cities' :key='index')
         .title {{item.title}}
         .body {{item.body}}
