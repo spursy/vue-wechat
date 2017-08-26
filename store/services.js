@@ -17,16 +17,7 @@ class Services {
         return axios.get(`${apiUrl}/wiki/cities`)
     }
     fetchCharacters () {
-        return {
-            data: [
-                {
-                    playedBy: "2131",
-                    name:"yiqiGo",
-                    cname: "Go"
-                }
-            ]
-        }
-        // return axios.get(`${apiUrl}/wiki/characters`)
+        return axios.get(`${apiUrl}/wiki/characters`)
     }
 }
 

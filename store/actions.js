@@ -19,14 +19,7 @@ export default {
     },
     async fetchCharacters ( {state} ) {
         const res =  await Services.fetchCharacters()
-        state.characters =  [
-                {
-                    playedBy: "2131",
-                    name:"yiqiGo",
-                    cname: "Go"
-                }
-            ];
-        // res.data
+        state.characters =  res.data.data
         return res
     }
 }
