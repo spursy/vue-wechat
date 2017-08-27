@@ -21,5 +21,14 @@ export default {
         const res =  await Services.fetchCharacters()
         state.characters =  res.data.data
         return res
+    },
+    async showHouse ({state}, _id) {
+        if (_id === state.currentHouse._id)  return 
+        
+        const res = await Services.fetchHouse(_id)
+        console.log(`${JSON.stringify(res)}`);
+        state.currentHouse = res.data.data
+
+        return res
     }
 }

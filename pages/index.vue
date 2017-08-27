@@ -30,7 +30,6 @@
   import {mapState} from 'vuex'
   export default {
     head () {
-      console.log(`head function`);
       return {
         title: '冰火脸谱'
       }
@@ -45,7 +44,7 @@
     methods: {
       showHouse (item) {
         this.$router.push({
-          path: '/houses',
+          path: '/house',
           query: {
             id: item._id
           }

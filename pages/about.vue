@@ -45,7 +45,6 @@ export default {
 
               wx.ready(() => {
                 wx.hideAllNonBaseMenuItem()
-                console.log(`success`);
               })
 
             }
