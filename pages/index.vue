@@ -17,17 +17,13 @@
             .cname {{item.name}}
             .name {{item.cname}}
     .city
-      .title 维斯特洛
+      .city-titile 维斯特洛
       .items(v-for='(item, index) in cities' :key='index')
         .title {{item.title}}
         .body {{item.body}}
 </template>
 
-<style scoped>
-.title
-{
-  margin: 50px 0;
-}
+<style scoped  lang = 'sass' src = '~/static/sass/index.sass'>
 </style>
 
 <script>
